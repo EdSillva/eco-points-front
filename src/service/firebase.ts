@@ -6,6 +6,7 @@ import {
   getRemoteConfig,
   fetchAndActivate,
 } from 'firebase/remote-config';
+import { getFirestore } from 'firebase/firestore';
 
 // Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -33,6 +34,7 @@ export const firebaseApp = initializeApp(firebaseConfig);
 export const firebaseAnalytics = getAnalytics(firebaseApp);
 export const firebaseAuth = getAuth(firebaseApp);
 export const remoteConfig = getRemoteConfig(firebaseApp);
+export const firestore = getFirestore(firebaseApp);
 remoteConfig.settings.minimumFetchIntervalMillis = 30;
 
 export async function initializeRemoteConfig() {

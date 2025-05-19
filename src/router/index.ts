@@ -1,5 +1,7 @@
-import { getAuth } from 'firebase/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { createRouter, createWebHistory } from 'vue-router';
+
+let isAuthChecked = false;
 
 const routes = [
   {
@@ -26,14 +28,26 @@ const router = createRouter({
 
 router.beforeEach((to, _, next) => {
   const auth = getAuth();
-  const user = auth.currentUser;
   const publicPages = ['Login', 'Register'];
   const requiresAuth = !publicPages.includes(to.name as string);
 
-  if (requiresAuth && !user) {
-    next({ name: 'Login' });
+  if (isAuthChecked) {
+    const user = auth.currentUser;
+    if (requiresAuth && !user) {
+      next({ name: 'Login' });
+    } else {
+      next();
+    }
   } else {
-    next();
+    // Espera o Firebase dizer se está logado ou não
+    onAuthStateChanged(auth, (user) => {
+      isAuthChecked = true;
+      if (requiresAuth && !user) {
+        next({ name: 'Login' });
+      } else {
+        next();
+      }
+    });
   }
 });
 
