@@ -95,8 +95,8 @@ const submitAction = async () => {
 
         showToast('success', 'Ação registrada!', 'Sua ação foi registrada com sucesso.')
         resetForm()
-    } catch (err: any) {
-        showToast('error', 'Erro ao enviar', err.message)
+    } catch (err: unknown) {
+        showToast('error', 'Erro ao enviar', err instanceof Error ? err.message : String(err))
     } finally {
         loading.value = false
     }

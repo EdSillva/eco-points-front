@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-white py-24 sm:py-16">
+    <div class="bg-white pt-8">
         <div class="mx-auto max-w-7xl px-6 lg:px-8">
             <h2 class="text-center text-lg/8 font-semibold text-gray-900">
                 Conheça nossos parceiros espalhados por toda cidade
